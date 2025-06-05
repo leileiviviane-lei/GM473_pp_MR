@@ -14,7 +14,7 @@ registerDoParallel(cl)
 
 
 # Read exposure list
-iddf <- read.table("id2821.txt", header = TRUE, sep = "\t")
+iddf <- read.table("id_ppr.txt", header = TRUE, sep = "\t")
 bioid <- as.vector(iddf$id)
 
 result <- data.frame()
@@ -23,7 +23,7 @@ result <- data.frame()
 foreach(i = bioid, .errorhandling = "pass") %do% {
 
   expo_rt <- read_exposure_data(
-    filename = paste0("clumped_5e-8/", i, ".csv"),
+    filename = paste0("ppr/", i, ".csv"),
     sep = ",",
     snp_col = "SNP",
     beta_col = "beta.exposure",
@@ -114,4 +114,4 @@ foreach(i = bioid, .errorhandling = "pass") %do% {
 result$fdr <- p.adjust(result$pvalue, method = "BH")
 
 # Save final result
-write.table(result, "pp-finngen_R12_NAFLD-mr-all-results_FDR.txt", sep = "\t", quote = FALSE, row.names = FALSE)
+write.table(result, "ppr-finngen_R12_NAFLD-mr-all-results_FDR.txt", sep = "\t", quote = FALSE, row.names = FALSE)
